@@ -1,0 +1,13 @@
+<%# using tags like will take the contents of whatever is returned inside
+the tags and output as raw text %>
+
+<%- include('partials/header') %>
+<%# 👆 will get the html from the template in the partials folder named header.ejs
+and replace the line 3 with its contents %>
+
+    <h1>Welcome to the Node and Express Demo</h1>
+
+<%- include('partials/footer') %>
+
+<%# seperating the top and bottom html that is common to all our pages into
+partials allows to reuse our html code %>

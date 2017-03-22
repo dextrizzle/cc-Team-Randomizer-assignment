@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<h1>Contact</h1>
+
+<%# putting code inside the tags 👇 will execute it, but not print it %>
+<%# we have access to params as a variable because you passed
+and object of the shape
+{params: {fullName: 'dasdas', email: 'dasdas', comment: 'dasdas'}}
+in the res.post('/context', function ...) router
+%>
+<% if (params) { %>
+  <h1> Thank you for your submission! </h1>
+  <p>Full Name: <%= params.fullName %></p>
+  <p>Email: <%= params.email %></p>
+  <p>Comment: <%= params.comment %></p>
+<% } %>
+
+<form method="post">
+  <div>
+    <label for="fullName">Name: </label>
+    <input id="fullName" name="fullName"/>
+  </div>
+
+  <div>
+    <label for="email">Email: </label>
+    <input id="email" name="email" type="email"/>
+  </div>
+
+  <div>
+    <label for="comment">Comment: </label>
+    <textarea id="comment" name="comment"></textarea>
+  </div>
+
+  <div>
+    <input id="submit" name="submit" type="submit"/>
+  </div>
+</form>
+
+<%- include('partials/footer') %>
