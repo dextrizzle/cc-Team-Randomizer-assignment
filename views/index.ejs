@@ -1,13 +1,38 @@
-<%# using tags like will take the contents of whatever is returned inside
-the tags and output as raw text %>
-
 <%- include('partials/header') %>
-<%# 👆 will get the html from the template in the partials folder named header.ejs
-and replace the line 3 with its contents %>
 
-    <h1>Welcome to the Node and Express Demo</h1>
+<h1 style="margin-bottom:100px;">teamRandomizer</h1>
+
+<%# putting code inside the tags 👇 will execute it, but not print it %>
+<%# we have access to params as a variable because you passed
+and object of the shape
+{params: {fullName: 'dasdas', email: 'dasdas', names: 'dasdas'}}
+in the res.post('/context', function ...) router
+%>
+
+
+  <form method="post">
+
+    <div>
+      <label for="names">Names: </label>
+      <textarea id="names" name="names" placeholder="john, doe, etc..."></textarea>
+    </div>
+
+    <div>
+      <label for="names">Members per team: </label>
+      <input type="number" name="quantity" min="1">
+
+    </div>
+
+    <div>
+      <input id="submit" name="submit" type="submit"/>
+    </div>
+  </form>
+
+<% if (pick) { %>
+  <h1> Teams: </h1>
+  <% for(let i=0;i<pick.length;i++){ %>
+  <p>Team <%= i+1 %>:
+  <% for(let j=0;j<pick[i].length;j++) {
+    if(j==pick[i].length-1 ){%><%=pick[i][j]%><% } else { %><%= pick[i][j] %>, <%}%><% } %></p><% } %><% } %>
 
 <%- include('partials/footer') %>
-
-<%# seperating the top and bottom html that is common to all our pages into
-partials allows to reuse our html code %>

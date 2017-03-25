@@ -1,28 +1,36 @@
-// this is ad different file than app.js
-// if we want to use the express package, we must require it again
-
 const Express = require('express');
 const router = Express.Router();
+const shuffle = require('shuffle-array');
+
+const namePicker = function(names,quantity){
+  teamSize = quantity;
+  namesArray = names.split(', ');
+  shuffled = shuffle(namesArray);
+  grouping = shuffled.length/teamSize;
+  newNames = [];
+  while(shuffled.length){
+    innerArray = [];
+    for(let i=0;i<teamSize;i++){
+      if(shuffled[0]!==undefined)
+        innerArray.push(shuffled[0])
+      shuffled.shift();
+    }
+    newNames.push(innerArray);
+  }
+  console.log(newNames);
+  return newNames;
+}
 
 router.get('/', function (req, res, next) {
-  res.render('index');
+  res.render('index',{pick: '', quantity: '', names:''});
 })
 
-router.get('/contact', function (req, res, next) {
-  res.render('contact', { params: null });
-})
-
-router.post('/contact', function (req, res, next) {
-  // the req.body is the form data received from the submitted form
-  // it's been added to req by the body-parser middleware
-  const params = req.body;
-  // res.send(req.body);
-  // (NEW!) Shortcut Object creation syntax
-  // { params } creates an object with a property named params and a value equal
-  // to params (i.e. { params: params })
-  res.render('contact', { params });
-  // passing an object as a second argument to render will make all properties
-  // of that object available as variables inside the template
+router.post('/', function (req, res, next) {
+  const {names} = req.body;
+  const {quantity} = req.body;
+  console.log(req.body);
+  // res.render('index', {pick: namePicker(names), names})
+  res.render('index', {pick: namePicker(names,quantity), names})
 })
 
 // when this file will be required somewhere else, it will receive the
